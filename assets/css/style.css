@@ -1,0 +1,294 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  transition: all 0.3s linear;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+.main {
+  position: fixed;
+  top: 0 !important;
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+  z-index: 99999999999;
+}
+.container {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: calc(100% - 30px);
+  max-width: 668px;
+  height: 90vh;
+  text-align: center;
+  background: #fed56c;
+  background-clip: padding-box;
+  border-radius: 32px;
+  border: 8px solid transparent;
+  box-shadow: -2px -2px 4px 1px rgba(111, 111, 111, 0.176), 2px 2px 4px 1px rgba(111, 111, 111, 0.15),
+    inset -2px -2px 4px 1px rgba(255, 252, 169, 0.552);
+  border: 1px solid #7d7d7d24;
+}
+.header {
+  margin-top: 20px;
+}
+.container::before {
+  position: absolute;
+  inset: -12px;
+  content: "";
+  background: #ffd875e7;
+  border-radius: 30px;
+  box-shadow: inset -2px -2px 3px 1px rgba(111, 111, 111, 0.235), inset 2px 2px 3px 1px rgba(111, 111, 111, 0.235);
+  z-index: -1;
+}
+
+.changeLanguage .contain,
+.container h2 {
+  position: relative;
+  text-align: left;
+  margin: 10px auto 0;
+  padding: 4px 6px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f5f2f2, #f0efef);
+  box-shadow: inset -8px 0 8px rgba(0, 0, 0, 0.15), inset 0 -8px 8px rgb(0 0 0 / 16%), 0 0 0 2px rgb(0 0 0 / 18%),
+    10px 20px 25px rgb(0 0 0 / 19%);
+}
+.container h2 {
+  width: calc(100% - 10%);
+  height: 60px;
+  font-size: 32px;
+}
+.container h2::before {
+  content: "Ngọc bất trác, bất thành khí!";
+  font-size: inherit !important;
+}
+
+.changeLanguage div.contain::before,
+.container h2::before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  bottom: 8px;
+  right: 6px;
+  font-size: 32px;
+  font-family: Arial, Helvetica !important;
+  color: deeppink;
+  background: linear-gradient(90deg, #f0efef, #f2f2f2);
+  border-radius: 999px;
+  box-shadow: -10px -10px 10px rgb(255 255 255 / 11%), 10px 5px 10px rgba(0, 0, 0, 0.15);
+  border-left: 4px solid #fff;
+  border-bottom: 1px solid #00000029;
+  border-top: 4px solid #fff;
+}
+.content {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: calc(100% - 10%);
+  height: 68%;
+  margin: auto;
+}
+.resultArticle {
+  display: flex;
+  height: 77%;
+  width: calc(100%);
+  margin: 20px auto 0px;
+  padding: 32px;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  font-style: italic !important;
+  color: rgb(0, 0, 0) !important;
+  border-bottom: none;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border: 2px solid rgb(255 252 169 / 89%);
+  background-image: linear-gradient(229deg, #ff00e192, #ffeb3b9f, #14ffe772), url(../img/family/Hai_co_tam.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.Love_my_two_beloved_girls {
+  font-size: 20px !important;
+  font-weight: normal;
+  font-style: italic;
+  color: #000094;
+  text-shadow: -1px 1px white;
+}
+.handmade {
+  font-size: 16px !important;
+  font-weight: normal;
+  font-style: italic;
+  color: #155b00;
+}
+.content .wrapTextarea {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  width: calc(100%);
+  height: 100px;
+}
+.reload,
+.clearScreen {
+  position: absolute;
+  bottom: 24%;
+  width: 48px;
+  cursor: pointer;
+}
+.reload {
+  right: 8px;
+}
+.clearScreen {
+  left: 8px;
+}
+textarea {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 16px 24px;
+  width: calc(100%);
+  height: 100%;
+  font-size: 18px;
+  color: #000;
+  border-top: none;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border: 2px solid rgb(255 252 169 / 89%);
+  outline: none;
+  background: #ffdd8659;
+}
+textarea::placeholder {
+  font-family: Arial, Helvetica, sans-serif !important;
+  color: #000;
+}
+.wrapControl {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: calc(100% - 10%);
+  height: 168px;
+}
+.changeLanguage {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 50px;
+}
+.changeLanguage .contain {
+  position: relative;
+  width: 28%;
+  height: 52px;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  padding-left: 16px;
+  box-sizing: border-box;
+  transition: all 0.15s ease-in-out !important;
+}
+.wrapControl .changeLanguage div.contain::before {
+  content: "";
+  cursor: pointer;
+  bottom: 6px;
+  padding-bottom: 4px;
+  background-size: 52px;
+  background-clip: content-box;
+  background-repeat: no-repeat;
+  background-position: top 1px right;
+}
+
+#England::before {
+  background-image: url(../img/vuong-quoc-anh.jpg);
+}
+#Japan::before {
+  background-image: url(../img/quoc-ky-nhat.png);
+}
+#China::before {
+  background-image: url(../img/Co-Trung-Quoc.jpg);
+}
+
+#rate-control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 4rem;
+  margin-left: auto;
+  flex: 1 0 260px;
+  max-width: 280px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0061d3;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-family: Arial, Helvetica !important;
+}
+
+.contain,
+.contain::before,
+#rate-control label {
+  user-select: none;
+}
+input[type="range"] {
+  cursor: pointer;
+}
+
+.contain:hover,
+#rate-control:hover,
+.contain:hover::before {
+  opacity: 0.8;
+}
+
+.contain:active {
+  height: 50px;
+  transform: translate(1px, 4px);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 18%), 5px 10px 15px rgb(0 0 0 / 19%), rgba(255, 252, 252, 0.945) 0px 1px 60px 1px;
+}
+.contain:active::before {
+  bottom: 2px !important;
+}
+
+@media screen and (max-width: 568px) {
+  .container {
+    height: 100vh !important;
+  }
+  .container h2 {
+    font-size: 20px !important;
+  }
+  .wrapControl .changeLanguage div.contain::before {
+    background-position: top -4px center;
+    background-size: contain;
+    box-sizing: content-box;
+    height: 30px;
+    top: 0px;
+  }
+  .wrapControl .changeLanguage div.contain:nth-child(2)::before {
+    background-position: top -1px center;
+  }
+  .changeLanguage .contain {
+    height: 40px;
+    width: 30%;
+  }
+  .changeLanguage .contain span {
+    display: none;
+  }
+}
