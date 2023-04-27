@@ -113,11 +113,13 @@ body {
   border-bottom: none;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  text-shadow: -1px 1px white;
   border: 2px solid rgb(255 252 169 / 89%);
   background-image: linear-gradient(229deg, #ff00e192, #ffeb3b9f, #14ffe772), url(../img/family/Hai_co_tam.png);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  cursor: pointer;
 }
 .Love_my_two_beloved_girls {
   font-size: 20px !important;

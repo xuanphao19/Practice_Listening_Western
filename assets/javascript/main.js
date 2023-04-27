@@ -26,10 +26,12 @@ let valueText = "";
 inputEl.addEventListener("blur", function () {
   valueText = inputEl.value;
   if (valueText && valueText != resultArticleEl.innerHTML) {
-    resultArticleEl.innerHTML = valueText;
     inputEl.value = "";
   }
 });
+inputEl.oninput = () => {
+  resultArticleEl.innerHTML = inputEl.value;
+};
 inputEl.onfocus = function (e) {
   doGTranslate("ru|en");
 };
@@ -91,24 +93,40 @@ function googleTranslateElementInit() {
 
 //<![CDATA[
 const rate = document.querySelector("#rate");
-var voices, text, aiload, langs, Mc;
+var voices, text, initialText, langs, Mc;
+var playings = true;
 window.addEventListener("click", checkWord);
-function checkWord() {
-  let word = window.getSelection().toString();
+function checkWord(e) {
+  let et = e.target,
+    word = window.getSelection().toString(),
+    parent =
+      et.matches(".wrapControl") || et.matches(".clearScreen")
+        ? et
+        : getParent(et, ".wrapControl") || getParent(et, ".wrapTextarea");
+  let isChild = resultArticleEl.contains(et);
   text = word;
-  if (text) {
-    speechText(text);
-  } else {
-    text = "Xin chào Nguyễn Thu Trang!";
-    speechText(text);
+  if (isChild && playings) {
+    if (text) {
+      speechText(text);
+    } else {
+      let textWhenClick = e.target.innerText;
+      text = textWhenClick;
+      speechText(text);
+      return;
+    }
+  } else if (!parent && playings) {
+    speechText("No text selected");
   }
-  return;
+  return text;
 }
+
+/* 11111111111111111111111111111111111 */
 function getVoicesText() {
   voices = window.speechSynthesis.getVoices();
   return voices;
 }
 function speechText(text) {
+  playings = false;
   if (text) {
     var voiceGetter = setTimeout(function () {
       voices = getVoicesText();
@@ -124,6 +142,7 @@ function speechText(text) {
           msg.onend = function (e) {
             console.log("Finished in " + e.elapsedTime + " seconds.");
             text = "Xin chào Nguyễn Thu Trang!";
+            playings = true;
           };
           speechSynthesis.speak(msg);
           setTimeout(voiceGetter);
@@ -132,32 +151,46 @@ function speechText(text) {
         alert(" Ah man, speech synthesis isnt supported.");
       }
     }, 200);
-    setTimeout(() => {
+
+    var replay = setTimeout(() => {
       var msg = new SpeechSynthesisUtterance(text);
       msg.rate = 0.7;
       msg.pitch = 0.8;
       msg.text = window.getSelection().toString();
       msg.lang = langs;
+      msg.onend = function (e) {
+        text = "Xin chào Nguyễn Thu Trang!";
+        playings = true;
+      };
       speechSynthesis.speak(msg);
-      window.clearTimeout(voiceGetter);
+      window.clearTimeout(replay);
     }, 800);
   } else {
-    text = aiload;
-    speechText(text);
+    var loadPlay = setTimeout(() => {
+      var msg = new SpeechSynthesisUtterance(text);
+      msg.rate = 0.9;
+      msg.pitch = 0.8;
+      msg.lang = "ja";
+      msg.text = initialText;
+      msg.onend = function (e) {
+        playings = true;
+      };
+      speechSynthesis.speak(msg);
+      window.clearTimeout(loadPlay);
+    }, 0);
   }
 }
-var clearScreen = select(".clearScreen");
+const clearScreen = select(".clearScreen");
 clearScreen.onclick = () => {
   if (resultArticleEl.innerHTML !== "") {
     inputEl.value = "";
     resultArticleEl.innerHTML = inputEl.value;
   }
 };
-let reloadWeb = select(".reload");
+const reloadWeb = select(".reload");
 reloadWeb.onclick = () => {
   location.reload();
 };
-
 //]]>
 
 $(window).on("load", function () {
@@ -178,7 +211,9 @@ $(window).on("load", function () {
   var myVar = setInterval(function () {
     myTimer();
   }, 0);
-  aiload = "Xin chào Nguyễn Thu Trang!";
+
+  initialText = "Xin chào Nguyễn Thu Trang!";
+  speechText(text);
 });
 
 if (languageBtn) {
@@ -186,6 +221,7 @@ if (languageBtn) {
     voices = getVoicesText();
     handleBtnClick(e, ".contain");
   };
+  // console.log(playings);
 }
 function handleBtnClick(e, elem) {
   let et = e.target.matches(elem) ? e.target : getParent(e.target, elem);
@@ -195,19 +231,19 @@ function handleBtnClick(e, elem) {
     let language;
     switch (elementId) {
       case "England":
-        language = "ru|en";
+        language = "vi|en";
         langs = "en";
         Mc = voices[4];
         break;
 
       case "Japan":
-        language = "ru|ja";
+        language = "vi|ja";
         langs = "ja";
         Mc = voices[13];
         break;
 
       case "China":
-        language = "ru|zh-CN";
+        language = "vi|zh-CN";
         langs = "zh-CN";
         Mc = voices[19];
         break;
@@ -215,7 +251,7 @@ function handleBtnClick(e, elem) {
       default:
         langs = "us";
         Mc = voices[5];
-        doGTranslate("ru|en");
+        doGTranslate("vi|en");
         break;
     }
     doGTranslate(language);
