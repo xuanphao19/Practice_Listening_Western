@@ -19,30 +19,8 @@ const getParent = (element, selector) => {
     return element;
   }
 };
-const inputEl = select("#importArticle"),
-  resultArticleEl = select(".resultArticle"),
-  languageBtn = select(".changeLanguage"),
-  welcome = select(".welcome");
-let valueText = "";
-inputEl.addEventListener("blur", function () {
-  valueText = inputEl.value;
-  if (valueText && valueText != resultArticleEl.innerHTML) {
-    inputEl.value = "";
-  }
-});
-inputEl.oninput = () => {
-  resultArticleEl.innerHTML = inputEl.value;
-};
-inputEl.onfocus = function (e) {
-  speechSynthesis.cancel();
-  doGTranslate("ru|en");
-  setTimeout(() => {
-    speechText(welcome.innerText);
-  }, 0);
-};
 
 /* ========  doGTranslate("ru|en");  ================== */
-
 function googleTranslateElementInit2() {
   const ems = new google.translate.TranslateElement(
     {
@@ -52,13 +30,6 @@ function googleTranslateElementInit2() {
     "google_translate_element2",
   );
 }
-var reloadState = function () {
-  var innerDoc;
-  var iframe = document.querySelector(".VIpgJd-ZVi9od-ORHb-OEVmcd.skiptranslate");
-  if (iframe) innerDoc = iframe.contentDocument ? iframe.contentDocument : iframe.contentWindow.document;
-  return innerDoc.getElementById(":1.close");
-};
-
 /* <![CDATA[ */
 eval(
   (function (p, a, c, k, e, r) {
@@ -103,7 +74,54 @@ function googleTranslateElementInit() {
   );
 }
 
-/* ===================================================================== */
+$(window).on("load", function () {
+  $(".goog-te-gadget").html($(".goog-te-gadget").children());
+  $("#google-translate").fadeIn("1000");
+
+  function cleartimer() {
+    setTimeout(function () {
+      window.clearInterval(myVar);
+    }, 500);
+  }
+  function myTimer() {
+    if ($(".goog-te-combo option:first").length) {
+      $(".goog-te-combo option:first").html("Translate");
+      cleartimer();
+    }
+  }
+  var myVar = setInterval(function () {
+    myTimer();
+  }, 0);
+});
+
+/* =============== End Dịch Trang ==================== */
+
+const inputEl = select("#importArticle"),
+  resultArticleEl = select(".resultArticle"),
+  languageBtn = select(".changeLanguage"),
+  welcome = select(".welcome");
+let valueText = "";
+inputEl.addEventListener("blur", function () {
+  valueText = inputEl.value;
+  if (valueText && valueText != resultArticleEl.innerHTML) {
+    inputEl.value = "";
+  }
+});
+inputEl.oninput = () => {
+  resultArticleEl.innerHTML = inputEl.value;
+};
+inputEl.onfocus = function (e) {
+  speechSynthesis.cancel();
+  speechText(welcome.innerText);
+  doGTranslate("ru|en");
+};
+
+var reloadState = function () {
+  var innerDoc;
+  var iframe = document.querySelector(".VIpgJd-ZVi9od-ORHb-OEVmcd.skiptranslate");
+  if (iframe) innerDoc = iframe.contentDocument ? iframe.contentDocument : iframe.contentWindow.document;
+  return innerDoc.getElementById(":1.close");
+};
 
 //<![CDATA[
 const rate = document.querySelector("#rate");
@@ -134,7 +152,6 @@ function checkWord(e) {
   return text;
 }
 
-/* 11111111111111111111111111111111111 */
 function getVoicesText() {
   voices = window.speechSynthesis.getVoices();
   return voices;
@@ -174,6 +191,7 @@ function speechText(text) {
     }, 800);
   }
 }
+
 const clearScreen = select(".clearScreen");
 clearScreen.onclick = () => {
   if (resultArticleEl.innerHTML !== "") {
@@ -189,26 +207,6 @@ reloadWeb.onclick = () => {
   if (reloadStateEl) reloadStateEl.click();
 };
 //]]>
-
-$(window).on("load", function () {
-  $(".goog-te-gadget").html($(".goog-te-gadget").children());
-  $("#google-translate").fadeIn("1000");
-
-  function cleartimer() {
-    setTimeout(function () {
-      window.clearInterval(myVar);
-    }, 500);
-  }
-  function myTimer() {
-    if ($(".goog-te-combo option:first").length) {
-      $(".goog-te-combo option:first").html("Translate");
-      cleartimer();
-    }
-  }
-  var myVar = setInterval(function () {
-    myTimer();
-  }, 0);
-});
 
 if (languageBtn) {
   languageBtn.onclick = (e) => {
@@ -250,27 +248,3 @@ function handleBtnClick(e, elem) {
     doGTranslate(language);
   }
 }
-// Bật đánh dấu văn bản có trong elements
-// document.getElementById("element").addEventListener("click", function (event) {
-//   setTimeout(
-//     function (passedThis) {
-//       window.getSelection().selectAllChildren(passedThis);
-//     },
-//     10,
-//     this,
-//   );
-// });
-// Nếu bạn muốn gọi một hàm ngay sau khi chọn văn bản, bạn có thể sử dụng sự kiện "selectionchange":
-// document.addEventListener("selectionchange", handleSelection);
-// speechSynthesis.speak(new SpeechSynthesisUtterance("Hello World"));
-/* ===================================================== */
-
-/* CÁCH THÊM CSS CHO Iframe: */
-
-// var cssLink = document.createElement("link");
-// cssLink.href = "style.css";
-// cssLink.rel = "stylesheet";
-// cssLink.type = "text/css";
-// frames["iframe1"].document.head.appendChild(cssLink);
-
-// Chỉ hoạt động với tôi khi tôi đã làm ...document.head.appendChild(cssLink)
