@@ -120,6 +120,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   cursor: pointer;
+  overflow-y: auto;
 }
 .Love_my_two_beloved_girls {
   font-size: 20px !important;
@@ -206,6 +207,7 @@ textarea::placeholder {
   padding-left: 16px;
   box-sizing: border-box;
   transition: all 0.15s ease-in-out !important;
+  z-index: 99999999;
 }
 .wrapControl .changeLanguage div.contain::before {
   content: "";

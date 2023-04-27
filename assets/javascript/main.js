@@ -94,7 +94,6 @@ function googleTranslateElementInit() {
 //<![CDATA[
 const rate = document.querySelector("#rate");
 var voices, text, initialText, langs, Mc;
-var playings = true;
 window.addEventListener("click", checkWord);
 function checkWord(e) {
   let et = e.target,
@@ -105,7 +104,7 @@ function checkWord(e) {
         : getParent(et, ".wrapControl") || getParent(et, ".wrapTextarea");
   let isChild = resultArticleEl.contains(et);
   text = word;
-  if (isChild && playings) {
+  if (isChild) {
     if (text) {
       speechText(text);
     } else {
@@ -114,7 +113,7 @@ function checkWord(e) {
       speechText(text);
       return;
     }
-  } else if (!parent && playings) {
+  } else if (!parent) {
     speechText("No text selected");
   }
   return text;
@@ -126,7 +125,6 @@ function getVoicesText() {
   return voices;
 }
 function speechText(text) {
-  playings = false;
   if (text) {
     var voiceGetter = setTimeout(function () {
       voices = getVoicesText();
@@ -142,7 +140,6 @@ function speechText(text) {
           msg.onend = function (e) {
             console.log("Finished in " + e.elapsedTime + " seconds.");
             text = "Xin chào Nguyễn Thu Trang!";
-            playings = true;
           };
           speechSynthesis.speak(msg);
           setTimeout(voiceGetter);
@@ -160,7 +157,6 @@ function speechText(text) {
       msg.lang = langs;
       msg.onend = function (e) {
         text = "Xin chào Nguyễn Thu Trang!";
-        playings = true;
       };
       speechSynthesis.speak(msg);
       window.clearTimeout(replay);
@@ -172,9 +168,7 @@ function speechText(text) {
       msg.pitch = 0.8;
       msg.lang = "ja";
       msg.text = initialText;
-      msg.onend = function (e) {
-        playings = true;
-      };
+      msg.onend = function (e) {};
       speechSynthesis.speak(msg);
       window.clearTimeout(loadPlay);
     }, 0);
@@ -211,9 +205,7 @@ $(window).on("load", function () {
   var myVar = setInterval(function () {
     myTimer();
   }, 0);
-
   initialText = "Xin chào Nguyễn Thu Trang!";
-  speechText(text);
 });
 
 if (languageBtn) {
@@ -221,7 +213,6 @@ if (languageBtn) {
     voices = getVoicesText();
     handleBtnClick(e, ".contain");
   };
-  // console.log(playings);
 }
 function handleBtnClick(e, elem) {
   let et = e.target.matches(elem) ? e.target : getParent(e.target, elem);
@@ -232,8 +223,8 @@ function handleBtnClick(e, elem) {
     switch (elementId) {
       case "England":
         language = "vi|en";
-        langs = "en";
-        Mc = voices[4];
+        langs = "en-GB";
+        Mc = voices[5];
         break;
 
       case "Japan":
@@ -249,11 +240,12 @@ function handleBtnClick(e, elem) {
         break;
 
       default:
-        langs = "us";
-        Mc = voices[5];
+        langs = "en-US";
+        Mc = voices[4];
         doGTranslate("vi|en");
         break;
     }
+    console.log(voices);
     doGTranslate(language);
   }
 }
