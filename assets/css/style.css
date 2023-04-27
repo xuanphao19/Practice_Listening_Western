@@ -23,9 +23,13 @@ body {
   z-index: 99999999999;
 }
 .container {
+  display: flex;
   position: absolute;
   inset: 0;
   margin: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   width: calc(100% - 30px);
   max-width: 668px;
   height: 90vh;
@@ -39,7 +43,8 @@ body {
   border: 1px solid #7d7d7d24;
 }
 .header {
-  margin-top: 20px;
+  margin-top: 10px;
+  width: 100%;
 }
 .container::before {
   position: absolute;
@@ -97,12 +102,11 @@ body {
   top: 0;
   left: 0;
   width: calc(100% - 10%);
-  height: 68%;
   margin: auto;
 }
 .resultArticle {
   display: flex;
-  height: 77%;
+  height: 45vh;
   width: calc(100%);
   margin: 20px auto 0px;
   padding: 32px;
@@ -125,7 +129,7 @@ body {
 .resultArticle::before {
   position: absolute;
   right: -3px;
-  bottom: 22.4%;
+  bottom: 18.4%;
   content: "";
   padding: 14px;
   border-radius: 999px;
@@ -154,12 +158,12 @@ body {
   margin-right: auto;
   padding: 0;
   width: calc(100%);
-  height: 100px;
 }
+
 .reload,
 .clearScreen {
   position: absolute;
-  bottom: 24%;
+  bottom: 20%;
   width: 48px;
   cursor: pointer;
 }
@@ -169,12 +173,12 @@ body {
 .clearScreen {
   left: 8px;
 }
-textarea {
+textarea.skiptranslate {
   margin-left: auto;
   margin-right: auto;
   padding: 16px 24px;
   width: calc(100%);
-  height: 100%;
+  height: 5em;
   font-size: 18px;
   color: #000;
   border-top: none;
@@ -201,7 +205,6 @@ textarea::placeholder {
   align-items: start;
   justify-content: space-between;
   width: 100%;
-  height: 50px;
 }
 .changeLanguage .contain {
   position: relative;
@@ -239,13 +242,13 @@ textarea::placeholder {
 
 .revert {
   width: 100%;
+  padding-top: 16px;
 }
 .revertError,
 #rate-control {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-top: 2rem;
   padding: 10px 16px;
   flex: 1 0 260px;
   max-width: 280px;
@@ -259,7 +262,7 @@ textarea::placeholder {
 
 .revertError {
   color: tomato;
-  padding: 10px 28px !important;
+  padding: 10px 16px !important;
   flex: 1 1 auto !important;
 }
 
@@ -288,9 +291,6 @@ input[type="range"] {
 }
 
 @media screen and (max-width: 568px) {
-  .container {
-    height: 100vh !important;
-  }
   .container h2 {
     font-size: 20px !important;
   }
@@ -308,6 +308,15 @@ input[type="range"] {
     height: 40px;
     width: 30%;
   }
+
+  #rate-control {
+    max-width: unset;
+    height: 42px;
+    justify-content: center;
+    flex: 1 1 auto;
+    margin-left: 16px;
+  }
+  #rate-control label,
   .changeLanguage .contain span {
     display: none;
   }

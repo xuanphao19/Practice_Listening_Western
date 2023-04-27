@@ -34,8 +34,11 @@ inputEl.oninput = () => {
   resultArticleEl.innerHTML = inputEl.value;
 };
 inputEl.onfocus = function (e) {
+  speechSynthesis.cancel();
   doGTranslate("ru|en");
-  speechText(welcome.innerText);
+  setTimeout(() => {
+    speechText(welcome.innerText);
+  }, 0);
 };
 
 /* ========  doGTranslate("ru|en");  ================== */
@@ -50,8 +53,9 @@ function googleTranslateElementInit2() {
   );
 }
 var reloadState = function () {
+  var innerDoc;
   var iframe = document.querySelector(".VIpgJd-ZVi9od-ORHb-OEVmcd.skiptranslate");
-  var innerDoc = iframe.contentDocument ? iframe.contentDocument : iframe.contentWindow.document;
+  if (iframe) innerDoc = iframe.contentDocument ? iframe.contentDocument : iframe.contentWindow.document;
   return innerDoc.getElementById(":1.close");
 };
 
@@ -180,6 +184,7 @@ clearScreen.onclick = () => {
 
 const reloadWeb = select(".revertError");
 reloadWeb.onclick = () => {
+  speechSynthesis.cancel();
   let reloadStateEl = reloadState();
   if (reloadStateEl) reloadStateEl.click();
 };
