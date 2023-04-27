@@ -111,8 +111,8 @@ inputEl.oninput = () => {
   resultArticleEl.innerHTML = inputEl.value;
 };
 inputEl.onfocus = function (e) {
-  speechSynthesis.cancel();
-  // speechText(welcome.innerText);
+  // speechSynthesis.cancel();
+  speechText(welcome.innerText);
   doGTranslate("ru|en");
 };
 
@@ -202,7 +202,7 @@ clearScreen.onclick = () => {
 
 const reloadWeb = select(".revertError");
 reloadWeb.onclick = () => {
-  speechSynthesis.cancel();
+  // speechSynthesis.cancel();
   let reloadStateEl = reloadState();
   if (reloadStateEl) reloadStateEl.click();
 };
