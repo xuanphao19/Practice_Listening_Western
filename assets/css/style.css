@@ -290,8 +290,8 @@ input[type="range"] {
 
 @media screen and (max-width: 568px) {
   .container {
-    height: 98vh !important;
-    padding-bottom: 16px;
+    height: 96vh !important;
+    margin-bottom: 12px;
   }
   .container h2 {
     font-size: 20px !important;

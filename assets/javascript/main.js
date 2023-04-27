@@ -111,17 +111,22 @@ inputEl.oninput = () => {
   resultArticleEl.innerHTML = inputEl.value;
 };
 inputEl.onfocus = function (e) {
-  // speechSynthesis.cancel();
   speechText(welcome.innerText);
-  doGTranslate("ru|en");
+  var onfocusChange = setTimeout(() => {
+    doGTranslate("ru|en");
+    window.clearTimeout(onfocusChange);
+  }, 200);
 };
 
-var reloadState = function () {
-  var innerDoc;
-  var iframe = document.querySelector(".VIpgJd-ZVi9od-ORHb-OEVmcd.skiptranslate");
-  if (iframe) innerDoc = iframe.contentDocument ? iframe.contentDocument : iframe.contentWindow.document;
-  return innerDoc.getElementById(":1.close");
-};
+var reloadState;
+setTimeout(() => {
+  reloadState = function () {
+    var innerDoc;
+    var iframe = document.querySelector(".VIpgJd-ZVi9od-ORHb-OEVmcd.skiptranslate");
+    if (iframe) innerDoc = iframe.contentDocument ? iframe.contentDocument : iframe.contentWindow.document;
+    return innerDoc.getElementById(":1.close");
+  };
+}, 1500);
 
 //<![CDATA[
 const rate = document.querySelector("#rate");
@@ -202,7 +207,6 @@ clearScreen.onclick = () => {
 
 const reloadWeb = select(".revertError");
 reloadWeb.onclick = () => {
-  // speechSynthesis.cancel();
   let reloadStateEl = reloadState();
   if (reloadStateEl) reloadStateEl.click();
 };
