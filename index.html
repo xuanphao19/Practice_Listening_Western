@@ -13,6 +13,7 @@
   </head>
 
   <body>
+    <div class="welcome">Xin chào Nguyễn Thu Trang!</div>
     <main class="main d-f-center">
       <div class="container">
         <div class="header skiptranslate">
@@ -35,7 +36,6 @@
             <textarea
               class="skiptranslate"
               name="importArticle"
-              autofocus
               placeholder="Nhập vào đây bất cứ thứ gì mà bạn muốn!"
               id="importArticle"
               rows="3"></textarea>
@@ -56,9 +56,13 @@
             </div>
           </div>
 
-          <div id="rate-control">
-            <label for="rate" class="skiptranslate">Tốc độ phát:</label>
-            <input type="range" min="0.5" max="2" value="1" step="0.1" id="rate" />
+          <div class="revert d-flex align-items-center justify-content-between">
+            <a class="revertError d-f-center" href="index.html">Revert Error!</a>
+
+            <div id="rate-control">
+              <label for="rate" class="skiptranslate">Play speed:</label>
+              <input type="range" min="0.5" max="2" value="1" step="0.1" id="rate" />
+            </div>
           </div>
         </div>
       </div>

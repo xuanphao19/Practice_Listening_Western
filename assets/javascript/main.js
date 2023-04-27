@@ -21,7 +21,8 @@ const getParent = (element, selector) => {
 };
 const inputEl = select("#importArticle"),
   resultArticleEl = select(".resultArticle"),
-  languageBtn = select(".changeLanguage");
+  languageBtn = select(".changeLanguage"),
+  welcome = select(".welcome");
 let valueText = "";
 inputEl.addEventListener("blur", function () {
   valueText = inputEl.value;
@@ -33,9 +34,13 @@ inputEl.oninput = () => {
   resultArticleEl.innerHTML = inputEl.value;
 };
 inputEl.onfocus = function (e) {
+  speechSynthesis.cancel();
   doGTranslate("ru|en");
+  speechText(welcome.innerText);
 };
+
 /* ========  doGTranslate("ru|en");  ================== */
+
 function googleTranslateElementInit2() {
   const ems = new google.translate.TranslateElement(
     {
@@ -45,6 +50,12 @@ function googleTranslateElementInit2() {
     "google_translate_element2",
   );
 }
+var reloadState = function () {
+  var iframe = document.querySelector(".VIpgJd-ZVi9od-ORHb-OEVmcd.skiptranslate");
+  var innerDoc = iframe.contentDocument ? iframe.contentDocument : iframe.contentWindow.document;
+  return innerDoc.getElementById(":1.close");
+};
+
 /* <![CDATA[ */
 eval(
   (function (p, a, c, k, e, r) {
@@ -93,13 +104,14 @@ function googleTranslateElementInit() {
 
 //<![CDATA[
 const rate = document.querySelector("#rate");
-var voices, text, initialText, langs, Mc;
+var voices, text, langs, Mc;
+
 window.addEventListener("click", checkWord);
 function checkWord(e) {
   let et = e.target,
     word = window.getSelection().toString(),
     parent =
-      et.matches(".wrapControl") || et.matches(".clearScreen")
+      et.matches(".wrapControl") || et.matches(".clearScreen") || et.matches(".reload")
         ? et
         : getParent(et, ".wrapControl") || getParent(et, ".wrapTextarea");
   let isChild = resultArticleEl.contains(et);
@@ -139,7 +151,6 @@ function speechText(text) {
           msg.lang = langs;
           msg.onend = function (e) {
             console.log("Finished in " + e.elapsedTime + " seconds.");
-            text = "Xin chào Nguyễn Thu Trang!";
           };
           speechSynthesis.speak(msg);
           setTimeout(voiceGetter);
@@ -155,23 +166,9 @@ function speechText(text) {
       msg.pitch = 0.8;
       msg.text = window.getSelection().toString();
       msg.lang = langs;
-      msg.onend = function (e) {
-        text = "Xin chào Nguyễn Thu Trang!";
-      };
       speechSynthesis.speak(msg);
       window.clearTimeout(replay);
     }, 800);
-  } else {
-    var loadPlay = setTimeout(() => {
-      var msg = new SpeechSynthesisUtterance(text);
-      msg.rate = 0.9;
-      msg.pitch = 0.8;
-      msg.lang = "ja";
-      msg.text = initialText;
-      msg.onend = function (e) {};
-      speechSynthesis.speak(msg);
-      window.clearTimeout(loadPlay);
-    }, 0);
   }
 }
 const clearScreen = select(".clearScreen");
@@ -181,9 +178,12 @@ clearScreen.onclick = () => {
     resultArticleEl.innerHTML = inputEl.value;
   }
 };
-const reloadWeb = select(".reload");
+
+const reloadWeb = select(".revertError");
 reloadWeb.onclick = () => {
-  location.reload();
+  speechSynthesis.cancel();
+  let reloadStateEl = reloadState();
+  if (reloadStateEl) reloadStateEl.click();
 };
 //]]>
 
@@ -205,7 +205,6 @@ $(window).on("load", function () {
   var myVar = setInterval(function () {
     myTimer();
   }, 0);
-  initialText = "Xin chào Nguyễn Thu Trang!";
 });
 
 if (languageBtn) {
@@ -229,7 +228,7 @@ function handleBtnClick(e, elem) {
 
       case "Japan":
         language = "vi|ja";
-        langs = "ja";
+        langs = "ja-JP";
         Mc = voices[13];
         break;
 
@@ -245,7 +244,19 @@ function handleBtnClick(e, elem) {
         doGTranslate("vi|en");
         break;
     }
-    console.log(voices);
     doGTranslate(language);
   }
 }
+// Bật đánh dấu văn bản có trong elements
+// document.getElementById("element").addEventListener("click", function (event) {
+//   setTimeout(
+//     function (passedThis) {
+//       window.getSelection().selectAllChildren(passedThis);
+//     },
+//     10,
+//     this,
+//   );
+// });
+// Nếu bạn muốn gọi một hàm ngay sau khi chọn văn bản, bạn có thể sử dụng sự kiện "selectionchange":
+// document.addEventListener("selectionchange", handleSelection);
+// speechSynthesis.speak(new SpeechSynthesisUtterance("Hello World"));
