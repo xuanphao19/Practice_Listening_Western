@@ -34,7 +34,6 @@ inputEl.oninput = () => {
   resultArticleEl.innerHTML = inputEl.value;
 };
 inputEl.onfocus = function (e) {
-  speechSynthesis.cancel();
   doGTranslate("ru|en");
   speechText(welcome.innerText);
 };
@@ -181,7 +180,6 @@ clearScreen.onclick = () => {
 
 const reloadWeb = select(".revertError");
 reloadWeb.onclick = () => {
-  speechSynthesis.cancel();
   let reloadStateEl = reloadState();
   if (reloadStateEl) reloadStateEl.click();
 };
@@ -260,3 +258,14 @@ function handleBtnClick(e, elem) {
 // Nếu bạn muốn gọi một hàm ngay sau khi chọn văn bản, bạn có thể sử dụng sự kiện "selectionchange":
 // document.addEventListener("selectionchange", handleSelection);
 // speechSynthesis.speak(new SpeechSynthesisUtterance("Hello World"));
+/* ===================================================== */
+
+/* CÁCH THÊM CSS CHO Iframe: */
+
+// var cssLink = document.createElement("link");
+// cssLink.href = "style.css";
+// cssLink.rel = "stylesheet";
+// cssLink.type = "text/css";
+// frames["iframe1"].document.head.appendChild(cssLink);
+
+// Chỉ hoạt động với tôi khi tôi đã làm ...document.head.appendChild(cssLink)
