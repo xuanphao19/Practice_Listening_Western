@@ -112,7 +112,7 @@ inputEl.oninput = () => {
 };
 inputEl.onfocus = function (e) {
   speechSynthesis.cancel();
-  speechText(welcome.innerText);
+  // speechText(welcome.innerText);
   doGTranslate("ru|en");
 };
 
